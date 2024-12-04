@@ -28,7 +28,7 @@ env/
 *.qmd-rendered
 
 # Temporary files
-.temp_reports/
+/temp_reports/
 
 # Editor directories
 .idea/
