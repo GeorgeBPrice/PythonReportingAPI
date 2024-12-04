@@ -1,0 +1,24 @@
+# FastAPI and Uvicorn for API development
+fastapi
+uvicorn[standard]
+
+# SQLAlchemy for ORM and database interaction
+sqlalchemy
+
+# pandas for data manipulation and preparation
+pandas
+
+# python-dotenv for environment variable management
+python-dotenv
+
+# matplotlib for visualizations in Quarto reports
+matplotlib
+
+# Quarto for generating reports
+quartodoc
+
+# pyodbc for connecting to SQL Server or other ODBC-supported databases
+pyodbc
+
+# Jupyter for development and testing within notebooks
+jupyter

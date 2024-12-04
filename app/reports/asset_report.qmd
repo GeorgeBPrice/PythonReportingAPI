@@ -1,0 +1,106 @@
+---
+title: Asset Report
+format:
+  pdf:
+    default: true
+  html: default
+  docx: default
+execute:
+  echo: false
+  output: true
+jupyter: python3
+header-includes:
+  - \usepackage{titling}
+  - \setlength{\droptitle}{-1cm} % Adjust margin above the title
+  - \pretitle{\vspace{-1cm}\begin{center}\LARGE} % Add negative space before the title
+  - \posttitle{\end{center}\vspace{-2.5cm}} % Add reduced space after the title
+---
+# Assets Breakdown
+
+This section provides a comprehensive summary of your organization's assets, breakding down the total number of assets in the system, their active and retired statuses, and the overall value of these assets.
+
+## Summary Table
+```{python}
+# Import necessary libraries
+import pandas as pd
+
+# Asset data dynamically passed from the backend service
+asset_data = {{ asset_data }}
+
+# Convert the data to a pandas DataFrame
+df = pd.DataFrame(asset_data)
+
+# Display the DataFrame without the index
+from IPython.display import display
+df_styled = df.style.set_table_styles(
+    [{"selector": "table", "props": [("width", "100%")]}]
+)
+
+# Totals row
+df.loc['TOTAL']= df.sum()
+
+# Clear all index cells except the last
+df.index = ["" if i != len(df) - 1 else "TOTAL" for i in range(len(df))]
+
+#set last value in asset type column to be blank
+df.loc[df.index[-1], 'Asset Type'] = ''
+
+display(df_styled)
+```
+
+## Asset Visualization
+```{python}
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Convert asset_data to a Pandas DataFrame for safe handling
+asset_data = pd.DataFrame({{ asset_data }})
+
+# Aggregate data for the pie chart
+active_assets = asset_data["Active Assets"].sum()
+retired_assets = asset_data["Retired Assets"].sum()
+
+# Data for the pie chart
+labels = [f"Active ({active_assets})", f"Retired ({retired_assets})"]
+sizes = [active_assets, retired_assets]
+colors = ["#007acc", "#ff9f61"]
+
+# Plot
+fig, ax = plt.subplots(figsize=(3.75, 3.75))
+ax.pie(sizes, labels=labels, autopct="%1.1f%%", colors=colors, startangle=90, shadow=True)
+ax.axis("equal")  # Equal aspect ratio ensures the pie is drawn as a circle.
+plt.title("Asset Status Distribution", fontsize=10)
+
+# Center the plot
+fig.tight_layout()
+plt.show()
+```
+
+## Analysis Guide
+
+This guide provides a framework to analyze the summary table and glean meaningful insights:
+
+1. **Asset Utilization**:
+   - Compare the number of active and retired assets across different categories to evaluate how well resources are being utilized.
+   - Identify categories with a higher proportion of retired assets to assess potential inefficiencies or aging equipment.
+
+2. **Category Insights**:
+   - Review the asset types with the highest counts to determine which are most critical to operations.
+   - Evaluate the distribution of assets to ensure alignment with organizational needs and priorities.
+
+3. **Asset Value Assessment**:
+   - Analyze the total asset value across categories to understand the scale of investment.
+   - Use this metric to evaluate return on investment (ROI) and prioritize future resource allocation.
+
+### Key Recommendations:
+- Evaluate the retired assets for potential recycling, resale, or repurposing opportunities to maximize their value.
+- Highlight high-value asset categories and explore strategies to maintain or improve their productivity.
+- Monitor trends over time by comparing successive reports to identify changes in utilization or asset lifecycle patterns.
+
+---
+```{python}
+from datetime import datetime
+
+# Generate current timestamp
+print(f"Report generated: {datetime.now().strftime("%d-%m-%Y %I:%M:%S %p")}")
+```
