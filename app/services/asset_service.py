@@ -1,56 +1,44 @@
-
-from turtle import pd
-from sqlalchemy import func
-from app.database import SessionLocal
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
+from sqlalchemy import Integer, cast, func, case
 from app.models.asset_models import Asset, AssetType
 
-def get_asset_report_data():
+
+async def get_asset_report_data(db: AsyncSession):
     """
-    Fetch and format asset report data for Quarto templates.
+    Fetch asset report data and format into structured report data.
     """
-    db = SessionLocal()
-    try:
-        # Aggregate asset data from the database
-        asset_data = (
-            db.query(
-                Asset.AssetTypeId,
-                Asset.Status,
-                func.count(Asset.AssetId).label("Total"),
-                func.sum(305 * Asset.AssetTypeId).label("TotalValue"),
-            )
-            .group_by(Asset.AssetTypeId, Asset.Status)
-            .all()
+    # Fetch aggregated asset data, including type, name and status breakdown
+    result = await db.execute(
+        select(
+            AssetType.TypeName,
+            func.count(Asset.AssetId).label("TotalAssets"),
+            func.sum(case((Asset.Status == "Active", 1), else_=0)).label("ActiveAssets"),
+            func.sum(case((Asset.Status == "Inactive", 1), else_=0)).label("RetiredAssets"),
+            func.sum(case((Asset.Status == "Retired", 1), else_=0)).label("RetiredAssets"),
+            cast(func.sum(Asset.AssetValue), Integer).label("TotalAssetValue"),
         )
+        .join(AssetType, Asset.AssetTypeId == AssetType.AssetTypeId)
+        .group_by(AssetType.TypeName)
+    )
 
-        # Transform data into a format suitable for the report
-        report_data = {
-            "Asset Type": [],
-            "Total Assets": [],
-            "Active Assets": [],
-            "Retired Assets": [],
-            "Total Asset Value": []
-        }
+    # Transform the query result into the report structure
+    report_data = {
+        "Asset Type": [],
+        "Total Assets": [],
+        "Active Assets": [],
+        "Inactive Assets": [],
+        "Retired Assets": [],
+        "Total Value": [],
+    }
 
-        for record in asset_data:
-            asset_type_name = db.query(AssetType.TypeName).filter_by(AssetTypeId=record.AssetTypeId).first()
-            if asset_type_name:
-                # Add the asset type
-                if asset_type_name.TypeName not in report_data["Asset Type"]:
-                    report_data["Asset Type"].append(asset_type_name.TypeName)
-                    report_data["Total Assets"].append(0)
-                    report_data["Active Assets"].append(0)
-                    report_data["Retired Assets"].append(0)
-                    report_data["Total Asset Value"].append(0)
+    for row in result:
+        type_name, total_assets, active_assets, inactive_assets, retired_assets, total_value = row
+        report_data["Asset Type"].append(type_name)
+        report_data["Total Assets"].append(total_assets)
+        report_data["Active Assets"].append(active_assets)
+        report_data["Inactive Assets"].append(inactive_assets)
+        report_data["Retired Assets"].append(retired_assets)
+        report_data["Total Value"].append(total_value)
 
-                index = report_data["Asset Type"].index(asset_type_name.TypeName)
-                report_data["Total Assets"][index] += record.Total
-                report_data["Total Asset Value"][index] += record.TotalValue
-
-                if record.Status == "Active":
-                    report_data["Active Assets"][index] += record.Total
-                elif record.Status == "Retired":
-                    report_data["Retired Assets"][index] += record.Total
-     
-        return report_data
-    finally:
-        db.close()
+    return report_data

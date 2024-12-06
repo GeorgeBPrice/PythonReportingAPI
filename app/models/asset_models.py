@@ -22,7 +22,7 @@ class AssetReport(Base):
 
 class Asset(Base):
     __tablename__ = "Assets"
-    __table_args__ = {"schema": "Asset"}  # Update to reflect the Asset schema
+    __table_args__ = {"schema": "Asset"}
 
     AssetId = Column(Integer, primary_key=True, autoincrement=True)
     AssetName = Column(String(255), nullable=True)
@@ -36,6 +36,7 @@ class Asset(Base):
     ProviderId = Column(Integer, nullable=True)
     PlanId = Column(Integer, nullable=True)
     PurchaseDate = Column(DateTime, nullable=True)
+    AssetValue= Column(Float, nullable=True)
     PurchaseInvoice = Column(String(100), nullable=True)
     WarrantyExpiry = Column(DateTime, nullable=True)
     Status = Column(String(50), nullable=True)
@@ -50,7 +51,7 @@ class Asset(Base):
 
 class AssetType(Base):
     __tablename__ = "AssetTypes"
-    __table_args__ = {"schema": "Asset"}  # Update to reflect the Asset schema
+    __table_args__ = {"schema": "Asset"}
 
     AssetTypeId = Column(Integer, primary_key=True, autoincrement=True)
     TypeName = Column(String(255), nullable=False)

@@ -1,0 +1,22 @@
+api-report-microservice/
+├── app/
+│   ├── generators/
+│   ├── models/
+│   ├── reports/
+│   ├── services/
+│   ├── routers/               # NEW: Dedicated folder for API route definitions
+│   │   ├── asset_routes.py    # Routes related to asset reports
+│   │   ├── expense_routes.py  # Routes related to expense reports
+│   │   ├── user_routes.py     # Example additional routes
+│   │   └── __init__.py        # Makes the folder a module
+│   ├── database.py
+│   ├── dependencies.py        # Centralized shared dependencies (e.g., db sessions)
+│   └── __init__.py            # Makes the app folder a module
+├── main.py                    # Main entry point, minimal logic
+├── requirements.txt
+├── .env
+├── README.md
+└── tests/                     # For unit and integration tests
+    ├── test_routers/
+    ├── test_services/
+    └── test_generators/

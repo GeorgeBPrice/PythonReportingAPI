@@ -50,7 +50,7 @@ def generate_asset_report_excel(data, output_dir="temp_reports"):
                 sheet.cell(row=totals_start_row, column=data_start_col).font = Font(bold=True, size=14)
 
                 # Write totals for each numeric column
-                numeric_columns = ["Total Assets", "Active Assets", "Retired Assets", "Total Asset Value"]
+                numeric_columns = ["Total Assets", "Active Assets", "Inactive Assets", "Retired Assets", "Total Value"]
                 for i, column_name in enumerate(numeric_columns, start=totals_start_row + 1):
                     # Write column name
                     sheet.cell(row=i, column=data_start_col).value = column_name

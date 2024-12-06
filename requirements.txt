@@ -22,3 +22,18 @@ pyodbc
 
 # Jupyter for development and testing within notebooks
 jupyter
+
+# OpenPyXL for advanced Excel handling
+openpyxl
+
+# Requests for making HTTP calls (if needed for fetching data from APIs)
+requests
+
+# MarkupSafe for working with Jinja2 templates (used internally by some libraries like Quarto)
+MarkupSafe
+
+# Pydantic for schema validation (FastAPI dependency)
+pydantic
+
+# Access ODBC_ databases with asyncio
+aioodbc
