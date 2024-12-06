@@ -39,6 +39,10 @@ df_styled = df.style.set_table_styles(
 # Totals row
 df.loc['TOTAL']= df.sum()
 
+# Format Total Value column with currency $ with commas
+if "Total Value" in df.columns:
+    df["Total Value"] = df["Total Value"].apply(lambda x: f"${x:,.0f}" if pd.notnull(x) else "")
+
 # Clear all index cells except the last
 df.index = ["" if i != len(df) - 1 else "TOTAL" for i in range(len(df))]
 
@@ -58,12 +62,13 @@ asset_data = pd.DataFrame({{ asset_data }})
 
 # Aggregate data for the pie chart
 active_assets = asset_data["Active Assets"].sum()
+inactive_assets = asset_data["Inactive Assets"].sum()
 retired_assets = asset_data["Retired Assets"].sum()
 
 # Data for the pie chart
-labels = [f"Active ({active_assets})", f"Retired ({retired_assets})"]
-sizes = [active_assets, retired_assets]
-colors = ["#007acc", "#ff9f61"]
+labels = [f"Active ({active_assets})", f"Inactive ({inactive_assets})", f"Retired ({retired_assets})"]
+sizes = [active_assets, inactive_assets, retired_assets]
+colors = ["#34eb6e", "#00b8d4", "#ff99cc"]
 
 # Plot
 fig, ax = plt.subplots(figsize=(3.75, 3.75))
