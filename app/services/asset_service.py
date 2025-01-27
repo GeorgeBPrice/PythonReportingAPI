@@ -14,14 +14,14 @@ async def get_asset_report_data(db: AsyncSession):
             AssetType.TypeName,
             func.count(Asset.AssetId).label("TotalAssets"),
             func.sum(case((Asset.Status == "Active", 1), else_=0)).label("ActiveAssets"),
-            func.sum(case((Asset.Status == "Inactive", 1), else_=0)).label("RetiredAssets"),
+            func.sum(case((Asset.Status == "Inactive", 1), else_=0)).label("InactiveAssets"),
             func.sum(case((Asset.Status == "Retired", 1), else_=0)).label("RetiredAssets"),
             cast(func.sum(Asset.AssetValue), Integer).label("TotalAssetValue"),
         )
         .join(AssetType, Asset.AssetTypeId == AssetType.AssetTypeId)
         .group_by(AssetType.TypeName)
     )
-
+    
     # Transform the query result into the report structure
     report_data = {
         "Asset Type": [],

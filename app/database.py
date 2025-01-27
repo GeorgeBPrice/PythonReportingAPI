@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-# grab the connection string
+# grab the connection string (store in KeyVault in prod) 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Set up the database engine for async operations

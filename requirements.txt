@@ -37,3 +37,12 @@ pydantic
 
 # Access ODBC_ databases with asyncio
 aioodbc
+
+# Pytest and its plugins for testing, mocking, and coverage
+pytest-mock
+
+# FastAPI testing utilities
+httpx
+
+# Test library to measure code coverage
+pytest-cov

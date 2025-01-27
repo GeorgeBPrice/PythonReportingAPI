@@ -73,7 +73,7 @@ colors = ["#34eb6e", "#00b8d4", "#ff99cc"]
 # Plot
 fig, ax = plt.subplots(figsize=(3.75, 3.75))
 ax.pie(sizes, labels=labels, autopct="%1.1f%%", colors=colors, startangle=90, shadow=True)
-ax.axis("equal")  # Equal aspect ratio ensures the pie is drawn as a circle.
+ax.axis("equal")  # drawn circle.
 plt.title("Asset Status Distribution", fontsize=10)
 
 # Center the plot
@@ -83,7 +83,7 @@ plt.show()
 
 ## Analysis Guide
 
-This guide provides a framework to analyze the summary table and glean meaningful insights:
+This guide provides a framework to analyze the summary table and glean meaningful insights (partially implemented):
 
 1. **Asset Utilization**:
    - Compare the number of active and retired assets across different categories to evaluate how well resources are being utilized.
