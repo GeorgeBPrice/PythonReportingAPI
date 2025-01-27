@@ -6,10 +6,8 @@ The **API Reporting Microservice** handles reporting for the IT Expense Manageme
 
 ## Key Features
 
-- CRUD operations and generation of reports for Expenses, Assets, and other insightful data.
+- Direct interacting with Data API sources, for gathering Expenses, Assets, and other insightful data points.
 - Flexible support for generating reports in **PDF**, **Excel**, and **Word** and **Jason Value** formats.
-- Use of AI for improved reporting analysis, and custom "on the fly" reports, leveraging GPT prompt API.
-- Comprehensive audit logging for tracking data changes and modifications.
 - Integration with **Quarto** for modern reporting capabilities.
 - Modular design for scalability and maintainability.
 
