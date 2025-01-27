@@ -1,6 +1,6 @@
-# API Reporting Microservice
+# Python Reporting API Service
 
-The **API Reporting Microservice** handles reporting for the IT Expense Management (ITAM) and Telecom Expense Management (TEM) SaaS platform. It enables accurate reporting and auditing of complex organizational data, including insights into asset lifecycles, location, associations, and other useful financial metrics.
+This **Python Reporting API** was created as a test to see if **PDF** and **PDF** could handle the static "predefined" reporting for the IT Expense Management (ITAM) and Telecom Expense Management (TEM) SaaS platform I am building. It is intended to enable accurate reporting and auditing of complex organizational data, including insights into asset lifecycles, location, associations, and other useful financial metrics. I was mildly happy with the outcome, and may use a similar setup, and fully develop it in the future. The only downside was the effort required to create report templates for different file types, and data types, however this is somewhat typical.
 
 ---
 
@@ -34,7 +34,6 @@ The **API Reporting Microservice** handles reporting for the IT Expense Manageme
 - Docker (if running containerised, can run in localhost too)
 - Kubernetes (if running in MiniKube or Azure Kubernetes Service)
 - Quarto (Install from [Quarto's website](https://quarto.org))
-- GPT API Key
 
 ### Setup and Run Locally
 
