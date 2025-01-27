@@ -1,6 +1,6 @@
 # Python Reporting API Service
 
-This **Python Reporting API** was created as a test to see if **PDF** and **PDF** could handle the static "predefined" reporting for the IT Expense Management (ITAM) and Telecom Expense Management (TEM) SaaS platform I am building. It is intended to enable accurate reporting and auditing of complex organizational data, including insights into asset lifecycles, location, associations, and other useful financial metrics. I was mildly happy with the outcome, and may use a similar setup, and fully develop it in the future. The only downside was the effort required to create report templates for different file types, and data types, however this is somewhat typical.
+This **Python Reporting API** was created as a test to see if **Python** and **Quarto** could handle the static "predefined" reporting for the IT Expense Management (ITAM) and Telecom Expense Management (TEM) SaaS platform I am building. It is intended to enable accurate reporting and auditing of complex organizational data, including insights into asset lifecycles, location, associations, and other useful financial metrics. I was mildly happy with the outcome, and may use a similar setup, and fully develop it in the future. The only downside was the effort required to create report templates for different file types, and data types, however this is somewhat typical.
 
 ---
 
